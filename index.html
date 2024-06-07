@@ -1,285 +1,356 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1, maximum-scale=1, minimum-scale=1" />
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no,initial-scale=1, maximum-scale=1, minimum-scale=1"
+    />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta charset="UTF-8">
-	<title>Test equations</title>
-	<link rel="stylesheet" href="style/style.css" type="text/css" />
+    <meta charset="UTF-8" />
+    <title>Test equations</title>
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="intro/introjs.css" />
-</head>
-<body onload='init("quadratic");'>
-	<canvas id="drawCanvas"></canvas>
-	<canvas id="myCanvas"></canvas>
-	<div class="box" id="one">
-		<div id="equation" data-step="1" data-intro="This is a randomly generated equation that you have to solve using the working out sheet as well as plotting it on the graph using the circular buttons on the line to change it."><p>y = <span id="a"></span> <span id="m"></span>x <span id="c"></span></p></div>
-	</div>
+  </head>
+  <body onload='init("quadratic");'>
+    <canvas id="drawCanvas"></canvas>
+    <canvas id="myCanvas"></canvas>
+    <div class="box" id="one">
+      <div
+        id="equation"
+        data-step="1"
+        data-intro="This is a randomly generated equation that you have to solve using the working out sheet as well as plotting it on the graph using the circular buttons on the line to change it."
+      >
+        <p>
+          y = <span id="a"></span> <span id="m"></span>x <span id="c"></span>
+        </p>
+      </div>
+    </div>
     <div class="box" id="two">
-        <ul class="icons">
-            <li><div class="icon topopup" id="checkAnswer" data-step="2" data-intro="Once you believe you have the right answer, click this button to see if it is correct and submit your workingout to the teacher.">
-            </div></li>
-            <li><div class="icon" id="changeScreen" onclick='zindex()' data-step="3" data-intro="Go to the working out area, also use this button to get back to the graph screen."></div></li> 
-            <li><div class="icon" id="linear" onclick='init("linear")' data-step="4" data-intro="Click here to generate a new random linear equation to solve.">
-            </div></li>
-            <li><div class="icon" id="quadratic" onclick='init("quadratic")' data-step="5" data-intro="Click here to generate a new random quadratic equation to solve."></div></li>
-            <li><div class="icon" id="help" onclick="javascript:introJs().setOption('tooltipClass', 'customDefault').start();"></div></li>
-        </ul>
+      <ul class="icons">
+        <li>
+          <div
+            class="icon topopup"
+            id="checkAnswer"
+            data-step="2"
+            data-intro="Once you believe you have the right answer, click this button to see if it is correct and submit your workingout to the teacher."
+          ></div>
+        </li>
+        <li>
+          <div
+            class="icon"
+            id="changeScreen"
+            onclick="zindex()"
+            data-step="3"
+            data-intro="Go to the working out area, also use this button to get back to the graph screen."
+          ></div>
+        </li>
+        <li>
+          <div
+            class="icon"
+            id="linear"
+            onclick='init("linear")'
+            data-step="4"
+            data-intro="Click here to generate a new random linear equation to solve."
+          ></div>
+        </li>
+        <li>
+          <div
+            class="icon"
+            id="quadratic"
+            onclick='init("quadratic")'
+            data-step="5"
+            data-intro="Click here to generate a new random quadratic equation to solve."
+          ></div>
+        </li>
+        <li>
+          <div
+            class="icon"
+            id="help"
+            onclick="javascript:introJs().setOption('tooltipClass', 'customDefault').start();"
+          ></div>
+        </li>
+      </ul>
     </div>
     <div class="box" id="three">
-        <img src="img/quadratic-equation.jpg" alt="New Quadratic" />
+      <img src="img/quadratic-equation.jpg" alt="New Quadratic" />
     </div>
     <div class="box" id="four">
-        <ul class="icons">
-            <li><div class="icon" id="eraser" onclick="changeColour();"></div></li>
-        </ul>
+      <ul class="icons">
+        <li><div class="icon" id="eraser" onclick="changeColour();"></div></li>
+      </ul>
     </div>
     <div id="toPopup">
-        <div class="close"></div>
-        <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
-        <div id="popup_content">
-            <h1 id="answer"></h1>
-        </div> 
+      <div class="close"></div>
+      <span class="ecs_tooltip"
+        >Press Esc to close <span class="arrow"></span
+      ></span>
+      <div id="popup_content">
+        <h1 id="answer"></h1>
+      </div>
     </div>
-   
+
     <div class="loader"></div>
     <div id="backgroundPopup"></div>
-	<ul id="score"><li class="points" >Points: <span id="points"></span></li></ul>
+    <ul id="score">
+      <li class="points">Points: <span id="points"></span></li>
+    </ul>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-<script src="tocca/Tocca.min.js" type="text/javascript"></script>
-<script src="http://code.createjs.com/easeljs-0.7.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="intro/intro.js"></script>
-<script type="text/javascript" src="intro/introjs-rtl.js"></script>
-<script type="text/javascript">
-
-/* 
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="tocca/Tocca.min.js" type="text/javascript"></script>
+    <script
+      src="https://code.createjs.com/easeljs-0.7.1.min.js"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript" src="intro/intro.js"></script>
+    <script type="text/javascript" src="intro/introjs-rtl.js"></script>
+    <script type="text/javascript">
+      /* 
 
     Decalaring equation canvas global Variables
 
 */
 
-// Canvas ID and context
-var canvas, cxt;
-// Object that holds attributes of the graph
-var axes = {};
-// Array and array place for holding equations
-var count, equations;
-// Arrays Finding the points in pixels of the graph, both X and Y
-var pointsX, pointsY;
-// Dragable points
-var element, deltaCenter = null, dragging, circle_m, circle_c, circle_x1, circle_x2;
-// The answers to linear test
-var answer_m, answer_c, answer_a, answer_b, answer_c;
-// Type of equation, linear or quadratic
-var type;
-// Points that the user can gain
-var points = 0;
-// Output points to a span in the DOM
-var pointsOutput = document.getElementById("points");
-// Set the points to 0
-pointsOutput.innerHTML = points;
-// Select the span ID's from the DOM to output the random equation
-var m = document.getElementById("m"), c = document.getElementById("c"), a = document.getElementById("a");
-// Create variable to hold the equation answer in a variable
-var answer;
+      // Canvas ID and context
+      var canvas, cxt;
+      // Object that holds attributes of the graph
+      var axes = {};
+      // Array and array place for holding equations
+      var count, equations;
+      // Arrays Finding the points in pixels of the graph, both X and Y
+      var pointsX, pointsY;
+      // Dragable points
+      var element,
+        deltaCenter = null,
+        dragging,
+        circle_m,
+        circle_c,
+        circle_x1,
+        circle_x2;
+      // The answers to linear test
+      var answer_m, answer_c, answer_a, answer_b, answer_c;
+      // Type of equation, linear or quadratic
+      var type;
+      // Points that the user can gain
+      var points = 0;
+      // Output points to a span in the DOM
+      var pointsOutput = document.getElementById("points");
+      // Set the points to 0
+      pointsOutput.innerHTML = points;
+      // Select the span ID's from the DOM to output the random equation
+      var m = document.getElementById("m"),
+        c = document.getElementById("c"),
+        a = document.getElementById("a");
+      // Create variable to hold the equation answer in a variable
+      var answer;
 
-var answerOuput = document.getElementById("answer");
-/*
+      var answerOuput = document.getElementById("answer");
+      /*
 
     Declaring drawing canvas global variables
 
 */
-// Canvas ID and CreateJS Stage
-var canvas2, stage;
-var drawingCanvas;
-var oldPt;
-var oldMidPt;
-var title;
-var draw_colour;
-var stroke_size;
-var colours;
-var index;
+      // Canvas ID and CreateJS Stage
+      var canvas2, stage;
+      var drawingCanvas;
+      var oldPt;
+      var oldMidPt;
+      var title;
+      var draw_colour;
+      var stroke_size;
+      var colours;
+      var index;
 
-/*
+      /*
 
     Other functions and objects
 
 */
 
-// Generate random number between -5 and 5 to create a random equation
-function randomNumber() {
-    var random = Math.floor(Math.random()*10) - 5;
-    if (random === 0) {
-        random = 1;
-    }
-    return random;
-}
+      // Generate random number between -5 and 5 to create a random equation
+      function randomNumber() {
+        var random = Math.floor(Math.random() * 10) - 5;
+        if (random === 0) {
+          random = 1;
+        }
+        return random;
+      }
 
-function randomA() {
-    var random = Math.floor(Math.random()*2) - 1;
-    if ( random === 0){
-        random = 1;
-    }
-    return random;
-}
+      function randomA() {
+        var random = Math.floor(Math.random() * 2) - 1;
+        if (random === 0) {
+          random = 1;
+        }
+        return random;
+      }
 
-/*
+      /*
 
     jQuery things
 
 */
 
+      $(document).ready(function () {
+        // When the window resizes
+        $("#myCanvas").on("swipeup", moveQuadUp);
+        $("#myCanvas").on("swipedown", moveQuadDown);
+        $(window).resize(function () {
+          reinit(type);
+        });
 
-$(document).ready(function() {
-    // When the window resizes
-    $("#myCanvas").on('swipeup', moveQuadUp);
-    $("#myCanvas").on('swipedown', moveQuadDown);
-    $(window).resize(function() {
-        reinit(type);
-    });
+        // Pop up to show correct answer:
 
-    // Pop up to show correct answer:
+        $(".topopup").click(function () {
+          loading(); // loading
+          setTimeout(function () {
+            // then show popup, deley in .5 second
+            if (checkAnswer()) {
+              answerOuput.innerHTML = "CORRECT! Here are some points for you!";
+              init(type);
+            } else {
+              answerOuput.innerHTML = "INCORRECT! Please try again!";
+            }
+            loadPopup(); // function show popup
+            pointsOutput.innerHTML = points;
+          }, 500); // .5 second
+          return false;
+        });
 
-    $(".topopup").click(function() {
-            loading(); // loading
-            setTimeout(function(){ // then show popup, deley in .5 second
-                if(checkAnswer()){
-                    answerOuput.innerHTML="CORRECT! Here are some points for you!";
-                    init(type);
-                } else {
-                    answerOuput.innerHTML="INCORRECT! Please try again!";
-                }
-                loadPopup(); // function show popup
-                pointsOutput.innerHTML=points;
-            }, 500); // .5 second
-    return false;
-    });
+        /* event for close the popup */
+        $("div.close").hover(
+          function () {
+            $("span.ecs_tooltip").show();
+          },
+          function () {
+            $("span.ecs_tooltip").hide();
+          }
+        );
 
-    /* event for close the popup */
-    $("div.close").hover(
-                    function() {
-                        $('span.ecs_tooltip').show();
-                    },
-                    function () {
-                        $('span.ecs_tooltip').hide();
-                    }
-                );
+        $("div.close").click(function () {
+          disablePopup(); // function close pop up
+        });
 
-    $("div.close").click(function() {
-        disablePopup();  // function close pop up
-    });
+        $(this).keyup(function (event) {
+          if (event.which == 27) {
+            // 27 is 'Ecs' in the keyboard
+            disablePopup(); // function close pop up
+          }
+        });
 
-    $(this).keyup(function(event) {
-        if (event.which == 27) { // 27 is 'Ecs' in the keyboard
-            disablePopup();  // function close pop up
+        $("div#backgroundPopup").click(function () {
+          disablePopup(); // function close pop up
+        });
+
+        /************** start: functions. **************/
+        function loading() {
+          $("div.loader").show();
         }
-    });
+        function closeloading() {
+          $("div.loader").fadeOut("normal");
+        }
 
-    $("div#backgroundPopup").click(function() {
-        disablePopup();  // function close pop up
-    });
+        var popupStatus = 0; // set value
 
-     /************** start: functions. **************/
-    function loading() {
-        $("div.loader").show();
-    }
-    function closeloading() {
-        $("div.loader").fadeOut('normal');
-    }
-
-    var popupStatus = 0; // set value
-
-    function loadPopup() {
-        if(popupStatus == 0) { // if value is 0, show popup
+        function loadPopup() {
+          if (popupStatus == 0) {
+            // if value is 0, show popup
             closeloading(); // fadeout loading
             $("#toPopup").fadeIn(0500); // fadein popup div
             $("#backgroundPopup").css("opacity", "0.7"); // css opacity, supports IE7, IE8
             $("#backgroundPopup").fadeIn(0001);
             popupStatus = 1; // and set value to 1
+          }
         }
-    }
 
-    function disablePopup() {
-        if(popupStatus == 1) { // if value is 1, close popup
+        function disablePopup() {
+          if (popupStatus == 1) {
+            // if value is 1, close popup
             $("#toPopup").fadeOut("normal");
             $("#backgroundPopup").fadeOut("normal");
-            popupStatus = 0;  // and set value to 0
+            popupStatus = 0; // and set value to 0
+          }
         }
-    }
+      });
+    </script>
 
-});
+    <script type="text/javascript" src="javascript/initialize.js"></script>
+    <script type="text/javascript" src="javascript/canvas-size.js"></script>
+    <script type="text/javascript" src="javascript/dragging.js"></script>
+    <script type="text/javascript" src="javascript/drawing.js"></script>
+    <script type="text/javascript" src="javascript/quadratic.js"></script>
+    <script type="text/javascript" src="javascript/linear.js"></script>
+    <script type="text/javascript" src="javascript/answer.js"></script>
 
-</script>
+    <script type="text/javascript">
+      function stop() {}
 
-<script type="text/javascript" src="javascript/initialize.js"></script>
-<script type="text/javascript" src="javascript/canvas-size.js"></script>
-<script type="text/javascript" src="javascript/dragging.js"></script>
-<script type="text/javascript" src="javascript/drawing.js"></script>
-<script type="text/javascript" src="javascript/quadratic.js"></script>
-<script type="text/javascript" src="javascript/linear.js"></script>
-<script type="text/javascript" src="javascript/answer.js"></script>
-
-
-<script type="text/javascript">
-
-        function stop() {}
-
-        function handleMouseDown(event) {
-            if (stage.contains(title)) { stage.clear(); stage.removeChild(title); }
-            draw_colour = colour;
-            stroke = stroke_size;
-            oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
-            oldMidPt = oldPt;
-            stage.addEventListener("stagemousemove" , handleMouseMove);
+      function handleMouseDown(event) {
+        if (stage.contains(title)) {
+          stage.clear();
+          stage.removeChild(title);
         }
+        draw_colour = colour;
+        stroke = stroke_size;
+        oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
+        oldMidPt = oldPt;
+        stage.addEventListener("stagemousemove", handleMouseMove);
+      }
 
-        function handleMouseMove(event) {
-            var midPt = new createjs.Point(oldPt.x + stage.mouseX>>1, oldPt.y+stage.mouseY>>1);
+      function handleMouseMove(event) {
+        var midPt = new createjs.Point(
+          (oldPt.x + stage.mouseX) >> 1,
+          (oldPt.y + stage.mouseY) >> 1
+        );
 
-            drawingCanvas.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(draw_colour).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
+        drawingCanvas.graphics
+          .clear()
+          .setStrokeStyle(stroke, "round", "round")
+          .beginStroke(draw_colour)
+          .moveTo(midPt.x, midPt.y)
+          .curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
 
-            oldPt.x = stage.mouseX;
-            oldPt.y = stage.mouseY;
+        oldPt.x = stage.mouseX;
+        oldPt.y = stage.mouseY;
 
-            oldMidPt.x = midPt.x;
-            oldMidPt.y = midPt.y;
+        oldMidPt.x = midPt.x;
+        oldMidPt.y = midPt.y;
 
-            stage.update();
+        stage.update();
+      }
+
+      function handleMouseUp(event) {
+        stage.removeEventListener("stagemousemove", handleMouseMove);
+      }
+
+      function zindex() {
+        if (canvas.style.zIndex === "0") {
+          canvas.style.zIndex = "5";
+          canvas2.style.zIndex = "0";
+          canvas.style.visibility = "visible";
+          canvas2.style.visibility = "hidden";
+          document.getElementById("three").style.visibility = "hidden";
+          document.getElementById("four").style.visibility = "hidden";
+        } else {
+          canvas.style.zIndex = "0";
+          canvas2.style.zIndex = "5";
+          canvas.style.visibility = "hidden";
+          canvas2.style.visibility = "visible";
+          document.getElementById("three").style.visibility = "visible";
+          document.getElementById("four").style.visibility = "visible";
         }
+      }
 
-        function handleMouseUp(event) {
-            stage.removeEventListener("stagemousemove" , handleMouseMove);
+      function changeColour() {
+        if (colour === "#000") {
+          colour = "#fff";
+          stroke_size = 35;
+        } else {
+          colour = "#000";
+          stroke_size = 5;
         }
-
-        function zindex() {
-            if(canvas.style.zIndex==="0"){
-                canvas.style.zIndex="5";
-                canvas2.style.zIndex="0";
-                canvas.style.visibility="visible";
-                canvas2.style.visibility="hidden";
-                document.getElementById("three").style.visibility="hidden";
-                document.getElementById("four").style.visibility="hidden";
-            }else{
-                canvas.style.zIndex="0";
-                canvas2.style.zIndex="5";
-                canvas.style.visibility="hidden";
-                canvas2.style.visibility="visible";
-                document.getElementById("three").style.visibility="visible";
-                document.getElementById("four").style.visibility="visible";
-            }
-        }
-
-        function changeColour() {
-            if(colour === "#000") {
-                colour = "#fff";
-                stroke_size = 35;
-            } else {
-                colour = "#000";
-                stroke_size = 5;
-            }
-        }
-
-</script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>
